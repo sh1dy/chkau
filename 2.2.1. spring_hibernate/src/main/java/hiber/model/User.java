@@ -1,9 +1,14 @@
 package hiber.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@Component
 public class User {
 
    @Id
@@ -19,7 +24,16 @@ public class User {
    @Column(name = "email")
    private String email;
 
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "cars_id")
+   private Car car;
+
    public User() {}
+
+   @Autowired
+   public User(Car car) {
+      this.car = car;
+   }
    
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
@@ -57,5 +71,38 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
+   @Override
+   public String toString() {
+      return "USER\nid = " + id + "\nname = " + firstName + " " + lastName
+              + "\nemail = " + email + "\n" + car;
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(id);
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (this == obj) {
+         return true;
+      } else if (obj == null || this.getClass() != obj.getClass()) {
+         return false;
+      }
+
+      User other = (User) obj;
+      return (this.id == other.getId() && Objects.equals(this.firstName, other.getFirstName())
+              && Objects.equals(this.lastName, other.getLastName())
+              && Objects.equals(this.email, other.getEmail()));
    }
 }
