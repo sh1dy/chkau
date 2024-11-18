@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MainApp {
-   public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) {
       AnnotationConfigApplicationContext context = 
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
 
-      User user1 = new User("Doctor", "Who", "К_9@gmail.com");
+      User user1 = new User("Doctor", "10th", "К_9@gmail.com");
       user1.setCar(new Car(1963, "TARDIS"));
       userService.add(user1);
 
@@ -27,6 +27,10 @@ public class MainApp {
       User user3 = new User("Headless", "Horseman", "trick@treat.com");
       user3.setCar(new Car(3110, "horse"));
       userService.add(user3);
+
+      User user4 = new User("Doctor", "12th", "heymissy@gmail.com");
+      user4.setCar(new Car(1963, "TARDIS"));
+      userService.add(user4);
 
       List<User> users = userService.listUsers();
       System.out.println();
