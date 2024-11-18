@@ -20,7 +20,8 @@ public class Car {
     @Column(name = "model")
     private String model;
 
-    public Car() {}
+    public Car() {
+    }
 
     public Car(int series, String model) {
         this.series = series;
