@@ -50,7 +50,7 @@ public class Car {
 
     @Override
     public int hashCode() {
-        return Objects.hash(series);
+        return Objects.hash(id, series);
     }
 
     @Override
